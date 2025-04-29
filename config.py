@@ -17,7 +17,7 @@ from telegram import InlineKeyboardButton
 
 NICK = os.environ.get('NICK', None)
 PORT = int(os.environ.get('PORT', '8080'))
-BOT_TOKEN = os.environ.get('BOT_TOKEN', None)
+BOT_TOKEN = os.environ.get('7695867957:AAEEvAgZ_OTJuaUn4aUhqRb8yxetaYRq4uY')
 RESET_TIME = int(os.environ.get('RESET_TIME', '3600'))
 if RESET_TIME < 60:
     RESET_TIME = 60
