@@ -962,11 +962,13 @@ if __name__ == '__main__':
         application.run_polling(timeout=time_out)
 
     import urllib.parse
+import threading
+import os
+from config import app  # Importing the Flask app from config.py
 
-# Save the original function
+# Patch SplitResult.__eq__ as in your original code
 original_endswith = urllib.parse.SplitResult.__eq__
 
-# Define a new function that ensures the argument is of the correct type
 def patched_endswith(self, other):
     if isinstance(self.path, str):
         self.path = self.path.encode()
@@ -974,5 +976,17 @@ def patched_endswith(self, other):
         other = other.encode()
     return original_endswith(self, other)
 
-# Apply the patch
 urllib.parse.SplitResult.__eq__ = patched_endswith
+
+# Start the Flask health check server in a background thread
+def run_flask():
+    port = int(os.environ.get("PORT", 8000))
+    app.run(host='0.0.0.0', port=port)
+
+threading.Thread(target=run_flask).start()
+
+# TODO: Add your bot logic below this point if needed
+# For example:
+# from telegram.ext import ApplicationBuilder
+# application = ApplicationBuilder().token("YOUR_TOKEN").build()
+# application.run_polling()
