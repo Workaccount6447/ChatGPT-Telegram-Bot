@@ -18,3 +18,4 @@ lxml-html-clean
 pdfminer.six==20240706
 duckduckgo-search==5.3.1
 flask
+gunicorn 
