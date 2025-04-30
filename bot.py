@@ -960,3 +960,19 @@ if __name__ == '__main__':
         application.run_webhook("0.0.0.0", PORT, webhook_url=WEB_HOOK)
     else:
         application.run_polling(timeout=time_out)
+
+    import urllib.parse
+
+# Save the original function
+original_endswith = urllib.parse.SplitResult.__eq__
+
+# Define a new function that ensures the argument is of the correct type
+def patched_endswith(self, other):
+    if isinstance(self.path, str):
+        self.path = self.path.encode()
+    if isinstance(other, str):
+        other = other.encode()
+    return original_endswith(self, other)
+
+# Apply the patch
+urllib.parse.SplitResult.__eq__ = patched_endswith
