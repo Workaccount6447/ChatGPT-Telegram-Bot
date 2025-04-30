@@ -14,4 +14,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 EXPOSE 8000
 
 # Run the application using Gunicorn and bind to the dynamic Koyeb port
-CMD ["gunicorn", "bot:app", "--bind", "0.0.0.0:$PORT", "--workers", "1", "--threads", "2"]
+CMD gunicorn bot:app --bind 0.0.0.0:$PORT --workers 1 --threads 2
+
